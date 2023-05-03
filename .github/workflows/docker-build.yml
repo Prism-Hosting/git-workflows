@@ -15,6 +15,7 @@ on:
       - 'src/**'
   workflow_dispatch:
   workflow_call:
+    secrets: inherit
 
 jobs:
   build:
