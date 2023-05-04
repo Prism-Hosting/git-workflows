@@ -1,18 +1,6 @@
 name: Build and publish Dockerfile
 
 on:
-  push:
-    branches: [ "main", "test" ]
-    paths:
-      - 'Dockerfile'
-      - 'operator/**'
-      - 'src/**'
-  pull_request:
-    branches: [ "main", "test" ]
-    paths:
-      - 'Dockerfile'
-      - 'operator/**'
-      - 'src/**'
   workflow_dispatch:
   workflow_call:
 
