@@ -16,7 +16,7 @@ on:
         value: ${{ jobs.oc-execution.outputs.oc-result }}
 
 jobs:
-  oc-execution:
+  execute-oc:
     runs-on: self-hosted
 
     outputs:
