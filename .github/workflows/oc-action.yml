@@ -10,17 +10,10 @@ on:
       namespace:
         required: true
         type: string
-    outputs:
-      oc-result:
-        description: "Output of oc command"
-        value: ${{ jobs.oc-execution.outputs.oc-result }}
 
 jobs:
   execute-oc:
     runs-on: self-hosted
-
-    outputs:
-      oc-result: ${{ steps.oc-user-action.outputs.oc-result }}
 
     steps:
     - name: Login to cluster
@@ -28,7 +21,4 @@ jobs:
 
     - name: Perform user action
       id: oc-user-action
-      run: | 
-        echo 'oc-result<<EOF' >> $GITHUB_OUTPUT
-        oc -n ${{ inputs.namespace }} ${{ inputs.oc-command }} >> $GITHUB_OUTPUT
-        echo 'EOF' >> $GITHUB_OUTPUT
+      run: oc -n ${{ inputs.namespace }} ${{ inputs.oc-command }}
