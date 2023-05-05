@@ -30,6 +30,6 @@ jobs:
       id: oc-user-action
       run: | 
         action=$(oc -n ${{ inputs.namespace }} ${{ inputs.oc-command }} >> $GITHUB_OUTPUT)) \
-        echo 'var<<EOF' >> $GITHUB_OUTPUT \
+        echo 'oc-result<<EOF' >> $GITHUB_OUTPUT \
         echo "${action}" >> $GITHUB_OUTPUT \
         echo 'EOF' >> $GITHUB_OUTPUT
