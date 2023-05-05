@@ -1,0 +1,36 @@
+name: Perform OpenShift Cluster action
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      oc-command:
+        required: true
+        type: string
+      namespace:
+        required: true
+        type: string
+    outputs:
+      oc-result:
+        description: "Output of oc command"
+        value: ${{ jobs.oc-execution.outputs.oc-result }}
+
+jobs:
+  oc-execution:
+    runs-on: self-hosted
+
+    outputs:
+      oc-result: ${{ steps.oc-user-action.outputs.oc-result }}
+
+    steps:
+    - name: Install oc
+      uses: redhat-actions/openshift-tools-installer@v1
+      with:
+        oc: latest
+
+    - name: Login to cluster
+      run: oc login ${{ secrets.OPENSHIFT_SERVER }} --token='${{ secrets.OPENSHIFT_SA_TOKEN }}' --insecure_skip_tls_verify=true
+
+    - name: Perform user action
+      id: oc-user-action
+      run: oc -n ${{ inputs.namespace }} ${{ inputs.oc-command }} >> $GITHUB_OUTPUT
