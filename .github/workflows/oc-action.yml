@@ -28,4 +28,8 @@ jobs:
 
     - name: Perform user action
       id: oc-user-action
-      run: oc -n ${{ inputs.namespace }} ${{ inputs.oc-command }} >> $GITHUB_OUTPUT
+      run: | 
+        action=$(oc -n ${{ inputs.namespace }} ${{ inputs.oc-command }} >> $GITHUB_OUTPUT)) \
+        echo 'var<<EOF' >> $GITHUB_OUTPUT \
+        echo "${action}" >> $GITHUB_OUTPUT \
+        echo 'EOF' >> $GITHUB_OUTPUT
